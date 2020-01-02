@@ -94,7 +94,7 @@ namespace Gadgetron {
 	       else if (tmp == std::string("traj_data"))
 		    str.replace(pos, pos_diff, dp.traj_data);
 	       else {
-		    GERROR( "Unknown default parameter, please see the complete list of available parameters...");
+		    GDEBUG( "Unknown default parameter, please see the complete list of available parameters...");
 	       }
 	       pos = pos_end;
 	  }

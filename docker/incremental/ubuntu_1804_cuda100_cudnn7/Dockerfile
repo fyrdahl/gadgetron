@@ -1,6 +1,15 @@
 FROM gadgetron/ubuntu_1804_cuda100_cudnn7_base
-ARG GADGETRON_URL=https://github.com/gadgetron/gadgetron
-ARG GADGETRON_BRANCH=master
+ARG GADGETRON_URL=https://github.com/fyrdahl/gadgetron
+ARG GADGETRON_BRANCH=bart_fix
+
+# REBUILD BART WITH CUDA SUPPORT
+RUN cd /opt/code/bart && \
+    rm -rf build && \
+    mkdir build && \
+    cd build && \
+    cmake .. -DCUDA=1 -DBART_FPIC=ON -DBART_ENABLE_MEM_CFL=ON -DBART_REDEFINE_PRINTF_FOR_TRACE=ON -DBART_LOG_BACKEND=ON -DBART_LOG_GADGETRON_BACKEND=ON && \
+    make -j $(nproc) && \
+    make install
 
 #ISMRMRD
 RUN cd /opt/code && \
